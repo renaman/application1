@@ -4,8 +4,8 @@
 <table>
 	<thead>
 		<tr>
-			<th>title</th>
-			<th>body</th>
+			<th>Title</th>
+			<th>Body</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -19,25 +19,26 @@
 				<%= book.body %>
 			</td>
 			<td>
-				<%=link_to "show", show_books_path(book.id) %>
-				<%=link_to "edit", edit_books_path(book.id) %>
-				<%=link_to "destroy", destroy_books_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
+				<%=link_to "show", book_path(book.id) %>
+				<%=link_to "edit", edit_book_path(book.id) %>
+				<%=link_to "destroy", book_path(book.id), method: :delete, "data-confirm" => "Are you sure?" %>
 			</td>
 		</tr>
 		<% end %>
 	</tbody>
 </table>
 <h3>New book</h3>
-<!-- form_for -->
 <%= form_for(@book) do |f| %>
-
-<h4>Title</h4>
-<%= f.text_field :title %>
-
-<h4>Body</h4>
-<%= f.text_area :body %>
-
-<br><%= f.submit 'Create Book' %></br>
-
+	<% if @book.errors.any? %>
+	 	<% @book.errors.full_messages.each do |message| %>
+	 	    <div>1 error prohibited this book from being saved:</div>
+	   		<%= message %>
+	 	<% end %>
+	<% end %>
+　　<div class="form">Title</div>
+　　<div align="left"><%= f.text_field :title %></div>
+　　<div class="form">Body</div>
+　　<div align="left"><%= f.text_area :body %></div>
+　　<div><%= f.submit 'Create Book' %></div>
 <% end %>
 </body>
